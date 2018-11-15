@@ -24,7 +24,7 @@ public class Main {
     public static void main(String[] args) {
 
         String[] genesisTransactions = {"a satoshi sent oleh 999999 bitcoin", "New/Digital World"};
-        Block genesisBlock = new Block(0, genesisTransactions);
+        Block genesisBlock = new Block("0", genesisTransactions);
 
         String[] block2Transactions = {"oleh sent 9 bitcoin to satoshi", "satoshi sent 99 bitcoin to domino pizza"};
         Block block2 = new Block(genesisBlock.getHashBlock(), block2Transactions);

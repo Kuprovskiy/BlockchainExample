@@ -1,6 +1,5 @@
 package digital.hash.blockchainsimpleexample;
 
-import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -13,11 +12,11 @@ import java.util.Date;
  */
 public class Block {
 
-    private int previousHash;
+    private String previousHash;
 
     private String[] transactions; // data
 
-    private int hashBlock;
+    private String hashBlock;
 
     private long timeStamp; // as number of milliseconds since 1/1/1970.
 
@@ -28,20 +27,31 @@ public class Block {
      * @param previousHash
      * @param transactions
      */
-    public Block(int previousHash, String[] transactions) {
+    public Block(String previousHash, String[] transactions) {
         this.previousHash = previousHash;
         this.transactions = transactions;
         this.timeStamp = new Date().getTime();
 
-        Object[] contains = {Arrays.hashCode(transactions), previousHash};
-        this.hashBlock = Arrays.hashCode(contains);
+        this.hashBlock = calculateHash();
+    }
+
+    /**
+     * Calculate the hash from all partsof the block
+     *
+     * @return String - Hashec
+     */
+    public String calculateHash() {
+        String calculatedHash = StringUtil.applySha256(
+                this.previousHash + Long.toString(this.timeStamp) + this.transactions);
+
+        return calculatedHash;
     }
 
     /**
      * Retrieve the value of previousHash.
      * @return A int data type.
      */
-    public int getPreviousHash() {
+    public String getPreviousHash() {
         return previousHash;
     }
 
@@ -57,7 +67,7 @@ public class Block {
      * Retrieve the value of hashBlock.
      * @return int data type.
      */
-    public int getHashBlock() {
+    public String getHashBlock() {
         return hashBlock;
     }
 
